@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+
+  pritunl:
+    container_name: pritunl
+    image: yojo3000/pritunl
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    restart: always
+    depends_on: [mongodb]
+    privileged: true
+    command: /usr/lib/pritunl/bin/pritunl start
+
+  mongodb:
+    container_name: mongodb
+    image: yojo3000/pritunl
+    ports:
+      - "27017:27017"
+    restart: always
+    volumes:
+      - "/home/yojo3000/pritunl/mongodb:/var/lib/mongodb"
+    command: /usr/bin/mongod --config /etc/mongodb.conf
