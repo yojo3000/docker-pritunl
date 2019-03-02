@@ -18,3 +18,6 @@ RUN apt update
 
 RUN apt install pritunl mongodb-server -y
 RUN sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongodb.conf
+
+RUN mkdir /var/log/pritunl
+RUN sed -i 's/\/var\/log\/pritunl.log/\/var\/log\/pritunl\/pritunl.log/g' /etc/pritunl.conf

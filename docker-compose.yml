@@ -10,6 +10,8 @@ services:
       - "443:443"
       - "8080:8080"
     restart: always
+    volumes:
+      - "/home/yojo3000/pritunl/logs/pritunl:/var/log/pritunl"
     depends_on: [mongodb]
     privileged: true
     command: /usr/lib/pritunl/bin/pritunl start
@@ -22,4 +24,5 @@ services:
     restart: always
     volumes:
       - "/home/yojo3000/pritunl/mongodb:/var/lib/mongodb"
+      - "/home/yojo3000/pritunl/logs/mongodb:/var/log/mongodb"
     command: /usr/bin/mongod --config /etc/mongodb.conf
