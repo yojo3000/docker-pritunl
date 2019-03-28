@@ -7,6 +7,7 @@ vim \
 gnupg2 \
 ca-certificates \
 iptables \
+openssh-server \
 -y
 
 RUN echo 'deb https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse' > /etc/apt/sources.list.d/mongodb-org-4.0.list
