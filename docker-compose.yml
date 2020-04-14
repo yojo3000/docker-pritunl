@@ -6,32 +6,36 @@ services:
     container_name: pritunl
     image: yojo3000/pritunl
     ports:
-      - "443:443"
       - "8080:8080"
+      #- "443:443"
     restart: always
     volumes:
       - "/home/yojo3000/docker_volume/pritunl/logs/pritunl:/var/log/pritunl"
       - "/home/yojo3000/docker_volume/pritunl/pritunl.conf:/etc/pritunl.conf"
+      - "/home/yojo3000/docker_volume/pritunl/pritunl:/var/lib/pritunl"
     depends_on: [mongodb]
     privileged: true
-    command: /usr/lib/pritunl/bin/pritunl start
+    command: /usr/local/bin/pritunl start
     networks:
-      - "default"
+      my_net:
+        ipv4_address: 172.18.0.2
 
   mongodb:
     container_name: mongodb
-    image: yojo3000/pritunl
-    ports:
-      - "27017:27017"
+    image: yojo3000/mongodb
+    #ports:
+      #- "27017:27017"
     restart: always
     volumes:
-      - "/home/yojo3000/docker_volume/pritunl/mongodb:/var/lib/mongodb"
-      - "/home/yojo3000/docker_volume/pritunl/logs/mongodb:/var/log/mongodb"
-    command: /usr/bin/mongod --config /etc/mongodb.conf
+      - "/home/yojo3000/docker_volume/mongodb/mongodb:/var/lib/mongodb"
+      - "/home/yojo3000/docker_volume/mongodb/logs/mongodb:/var/log/mongodb"
+    command: /usr/bin/mongod --config /etc/mongod.conf
     networks:
-      - "default"
+      my_net:
+        ipv4_address: 172.18.0.3
+
 
 networks:
-  default:
+  my_net:
     external:
       name: my_bridge_network
